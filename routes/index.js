@@ -20,6 +20,7 @@ router.get('/stations', async function(req, res) {
     }
   );
   
+  res.append('Access-Control-Allow-Origin', '*');
   res.json(fetchResult);
 });
 
@@ -38,6 +39,8 @@ router.get('/station/:code', async function(req, res) {
       })
     );
   });
+
+  res.append('Access-Control-Allow-Origin', '*');
   res.json(jsonResult);
 });
 
