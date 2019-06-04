@@ -36,4 +36,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// Keep app alive
+var http = require('http');
+setInterval(function() {
+  http.get("http://translink-proxy.herokuapp.com/");
+}, 1200000);
+
 module.exports = app;

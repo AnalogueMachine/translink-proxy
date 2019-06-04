@@ -3,6 +3,12 @@ var fetch = require('node-fetch');
 var router = express.Router();
 const xml2js = require('xml-js');
 
+router.get('/', function(req, res) {
+  res.render('../views/index', {
+    title: 'Translink Proxy'
+  })
+});
+
 router.get('/stations', async function(req, res) {
   let fetchResult;
 

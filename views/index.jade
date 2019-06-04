@@ -3,3 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  p This is a simple proxy for making requests to the Translink NI Railways real time passenger information API and getting around pesky CORS issues.
+  p Hit '/stations' to get the list of stations (JSON).
+  p Hit '/stations/{stationcode}' with the relevant station code to get the current information for that station.
+  p Station information has been converted from XML to JSON so will appear slightly messy.
