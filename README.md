@@ -1,5 +1,5 @@
 # translink-proxy
-A quick and dirty Express proxy to get around CORS issues with the [Translink Trains](https://github.com/AnalogueMachine/translink-trains) React App.
+A quick and dirty Express proxy to get around CORS issues with the [Translink Trains](https://github.com/hundredpercentcoverage/translink-trains) React App.
 
 Retrieves info from the Translink real-time passenger information endpoints listed on OpenData NI and converts them to a usable JSON format that the front-end can work with.
 
