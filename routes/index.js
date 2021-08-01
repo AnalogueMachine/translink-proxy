@@ -10,38 +10,36 @@ router.get('/', function(req, res) {
 });
 
 router.get('/stations', async function(req, res) {
-  let fetchResult;
+  try {
+    const data = await fetch('https://apis.opendatani.gov.uk/translink');
+    const result = await data.json();
+    const { stations } = result;
 
-  await fetch('https://apis.opendatani.gov.uk/translink/')
-    .then(results => {
-      return results.json();
-    }).then(data => {
-      fetchResult = data.stations;
-    }
-  );
-  
-  res.append('Access-Control-Allow-Origin', '*');
-  res.json(fetchResult);
+    res.append('Access-Control-Allow-Origin', '*');
+    res.status(200).json(stations);
+  } catch (e) {
+    res.status(500).json({ message: `Internal server error - ${e.message}`});
+  }
 });
 
 router.get('/station/:code', async function(req, res) {
-  let jsonResult;
-
-  await fetch(`https://apis.opendatani.gov.uk/translink/${req.params.code}.xml`).then(response => {
-    return response.text();
-  }).then(xml => {
-    jsonResult = JSON.parse(
-      xml2js.xml2json(xml, {
+  try {
+    const xmlData = await fetch(`https://apis.opendatani.gov.uk/translink/${req.params.code}.xml`);
+    const xmlAsText = await xmlData.text();
+    const jsonData = JSON.parse(
+      xml2js.xml2json(xmlAsText, {
         compact: true,
         textKey: "_",
         attributesKey: "$",
         commentKey: "value"
       })
     );
-  });
 
-  res.append('Access-Control-Allow-Origin', '*');
-  res.json(jsonResult);
+    res.append('Access-Control-Allow-Origin', '*');
+    res.status(200).send(jsonData);
+  } catch (e) {
+    res.status(500).json({ message: `Internal server error - ${e.message}`});
+  }
 });
 
 module.exports = router;
