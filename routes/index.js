@@ -2,6 +2,7 @@ var express = require('express');
 var fetch = require('node-fetch');
 var router = express.Router();
 const xml2js = require('xml-js');
+const stations = require('../stations.json');
 
 router.get('/', function(req, res) {
   res.render('../views/index', {
@@ -11,9 +12,10 @@ router.get('/', function(req, res) {
 
 router.get('/stations', async function(req, res) {
   try {
-    const data = await fetch('https://apis.opendatani.gov.uk/translink');
-    const result = await data.json();
-    const { stations } = result;
+    // This API is no longer responding
+    // const data = await fetch('https://apis.opendatani.gov.uk/translink');
+    // const result = await data.json();
+    // const { stations } = result;
 
     res.append('Access-Control-Allow-Origin', '*');
     res.status(200).json(stations);
